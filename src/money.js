@@ -6,41 +6,25 @@ class Money {
 
   equals(money) {
     return (
-      money.amount === this.amount && money.constructor === this.constructor
+      money.amount === this.amount && money.getCurrency() === this.currency
     );
   }
 
   static dollar(amount) {
-    return new Dollar(amount, 'USD');
+    return new Money(amount, 'USD');
   }
 
   static franc(amount) {
-    return new Franc(amount, 'CHF');
+    return new Money(amount, 'CHF');
   }
 
   getCurrency() {
     return this.currency;
   }
-}
-
-class Dollar extends Money {
-  constructor(amount, currency) {
-    super(amount, currency);
-  }
 
   times(multiplier) {
-    return Money.dollar(this.amount * multiplier);
+    return new Money(this.amount * multiplier, this.currency);
   }
 }
 
-class Franc extends Money {
-  constructor(amount, currency) {
-    super(amount, currency);
-  }
-
-  times(multiplier) {
-    return Money.franc(this.amount * multiplier);
-  }
-}
-
-export { Dollar, Franc, Money };
+export default Money;
