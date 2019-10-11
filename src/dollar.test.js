@@ -4,10 +4,8 @@ describe('dollar', () => {
   it('should multiply dollars', () => {
     expect.assertions(2);
     const five = new Dollar(5);
-    let product = five.times(2);
-    expect(product.amount).toBe(10);
-    product = five.times(3);
-    expect(product.amount).toBe(15);
+    expect(five.times(2).equals(new Dollar(10))).toBe(true);
+    expect(five.times(3).equals(new Dollar(15))).toBe(true);
   });
 
   it('should compare equality of dollars', () => {
