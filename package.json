@@ -1,0 +1,25 @@
+{
+  "name": "tdd-javascript",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Eliseu Videira <eliseuvideira1@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/cli": "^7.6.4",
+    "@babel/core": "^7.6.4",
+    "@babel/node": "^7.6.3",
+    "@babel/preset-env": "^7.6.3",
+    "@types/jest": "^24.0.18",
+    "eslint": "^6.5.1",
+    "jest": "^24.9.0",
+    "nodemon": "^1.19.3"
+  },
+  "scripts": {
+    "babel-node": "node_modules/.bin/babel-node app.js",
+    "start": "node_modules/.bin/nodemon --exec yarn babel-node",
+    "test": "node_modules/.bin/jest --watch"
+  },
+  "dependencies": {
+    "eslint-plugin-jest": "^22.17.0"
+  }
+}
