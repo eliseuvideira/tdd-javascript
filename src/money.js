@@ -6,4 +6,26 @@ class Money {
   }
 }
 
-export default Money;
+class Dollar extends Money {
+  constructor(amount) {
+    super();
+    this.amount = amount;
+  }
+
+  times(multiplier) {
+    return new Dollar(this.amount * multiplier);
+  }
+}
+
+class Franc extends Money {
+  constructor(amount) {
+    super();
+    this.amount = amount;
+  }
+
+  times(multiplier) {
+    return new Franc(this.amount * multiplier);
+  }
+}
+
+export { Dollar, Franc, Money };
