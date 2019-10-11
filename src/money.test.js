@@ -30,3 +30,11 @@ describe('franc', () => {
     expect(Money.franc(5).equals(Money.franc(6))).toBe(false);
   });
 });
+
+describe('money', () => {
+  it('should implement currency', () => {
+    expect.assertions(2);
+    expect(Money.dollar(1).getCurrency()).toBe('USD');
+    expect(Money.franc(2).getCurrency()).toBe('CHF');
+  });
+});

@@ -1,4 +1,9 @@
 class Money {
+  constructor(amount, currency) {
+    this.amount = amount;
+    this.currency = currency;
+  }
+
   equals(money) {
     return (
       money.amount === this.amount && money.constructor === this.constructor
@@ -6,33 +11,35 @@ class Money {
   }
 
   static dollar(amount) {
-    return new Dollar(amount);
+    return new Dollar(amount, 'USD');
   }
 
   static franc(amount) {
-    return new Franc(amount);
+    return new Franc(amount, 'CHF');
+  }
+
+  getCurrency() {
+    return this.currency;
   }
 }
 
 class Dollar extends Money {
-  constructor(amount) {
-    super();
-    this.amount = amount;
+  constructor(amount, currency) {
+    super(amount, currency);
   }
 
   times(multiplier) {
-    return new Dollar(this.amount * multiplier);
+    return Money.dollar(this.amount * multiplier);
   }
 }
 
 class Franc extends Money {
-  constructor(amount) {
-    super();
-    this.amount = amount;
+  constructor(amount, currency) {
+    super(amount, currency);
   }
 
   times(multiplier) {
-    return new Franc(this.amount * multiplier);
+    return Money.franc(this.amount * multiplier);
   }
 }
 
