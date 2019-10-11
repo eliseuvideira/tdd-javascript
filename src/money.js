@@ -4,6 +4,14 @@ class Money {
       money.amount === this.amount && money.constructor === this.constructor
     );
   }
+
+  static dollar(amount) {
+    return new Dollar(amount);
+  }
+
+  static franc(amount) {
+    return new Franc(amount);
+  }
 }
 
 class Dollar extends Money {
