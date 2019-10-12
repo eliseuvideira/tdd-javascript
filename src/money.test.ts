@@ -1,4 +1,5 @@
 import Money from './money';
+import Bank from './bank';
 
 describe('money', () => {
   it('should test equality', () => {
@@ -19,5 +20,14 @@ describe('money', () => {
     expect.assertions(2);
     expect(Money.dollar(1).getCurrency()).toBe('USD');
     expect(Money.franc(2).getCurrency()).toBe('CHF');
+  });
+
+  it('should compute simple addition', () => {
+    expect.assertions(1);
+    const five = Money.dollar(5);
+    const sum = five.plus(five);
+    const bank = new Bank();
+    const reduced = bank.reduce(sum, 'USD');
+    expect(Money.dollar(10).equals(reduced)).toBe(true);
   });
 });

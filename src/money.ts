@@ -1,4 +1,6 @@
-class Money {
+import Expression from './expression';
+
+class Money implements Expression {
   static dollar(amount: number): Money {
     return new Money(amount, 'USD');
   }
@@ -27,6 +29,10 @@ class Money {
 
   public times(multiplier: number): Money {
     return new Money(this.amount * multiplier, this.currency);
+  }
+
+  public plus(addend: Money): Expression {
+    return new Money(this.amount + addend.amount, this.currency);
   }
 }
 
