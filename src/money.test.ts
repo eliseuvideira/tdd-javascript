@@ -1,5 +1,7 @@
-import Money, { Sum } from './money';
+import Money from './money';
 import Bank from './bank';
+import Expression from './expression';
+import Sum from './sum';
 
 describe('money', () => {
   it('should test equality', () => {
@@ -66,5 +68,15 @@ describe('money', () => {
   it('should test rate of identical currencies', () => {
     expect.assertions(1);
     expect(new Bank().getRate('USD', 'USD')).toBe(1);
+  });
+
+  it('should add mixed currencies', () => {
+    expect.assertions(1);
+    const fiveDollars = Money.dollar(5);
+    const tenFrancs: Expression = Money.franc(10) as Expression;
+    const bank = new Bank();
+    bank.addRate('CHF', 'USD', 2);
+    const result = bank.reduce(fiveDollars.plus(tenFrancs), 'USD');
+    expect(Money.dollar(10).equals(result)).toBe(true);
   });
 });
