@@ -40,6 +40,12 @@ class Money implements Expression {
   }
 
   public plus(addend: Expression): Expression {
+    if (
+      addend instanceof Money &&
+      this.getCurrency() === (addend as Money).getCurrency()
+    ) {
+      return new Money(this.amount + (addend as Money).amount, this.currency);
+    }
     return new Sum(this, addend);
   }
 }
