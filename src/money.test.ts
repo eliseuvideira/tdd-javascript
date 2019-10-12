@@ -33,15 +33,6 @@ describe('money', () => {
     expect(Money.dollar(10).equals(reduced)).toBe(true);
   });
 
-  it('`plus()` should return a sum', () => {
-    expect.assertions(2);
-    const five = Money.dollar(5);
-    const result = five.plus(five);
-    const sum: Sum = result as Sum;
-    expect(five.equals(sum.augend)).toBe(true);
-    expect(five.equals(sum.addend)).toBe(true);
-  });
-
   it('should reduce sum', () => {
     expect.assertions(1);
     const sum = new Sum(Money.dollar(3), Money.dollar(4));
@@ -78,5 +69,33 @@ describe('money', () => {
     bank.addRate('CHF', 'USD', 2);
     const result = bank.reduce(fiveDollars.plus(tenFrancs), 'USD');
     expect(Money.dollar(10).equals(result)).toBe(true);
+  });
+
+  it('should add sum to money', () => {
+    expect.assertions(1);
+    const fiveDollars = Money.dollar(5);
+    const tenFrancs = Money.franc(10);
+    const bank = new Bank();
+    bank.addRate('CHF', 'USD', 2);
+    const sum = new Sum(fiveDollars, tenFrancs).plus(fiveDollars);
+    const result = bank.reduce(sum, 'USD');
+    expect(result.equals(Money.dollar(15))).toBe(true);
+  });
+
+  it('should multiple sum', () => {
+    expect.assertions(1);
+    const fiveDollars = Money.dollar(5);
+    const tenFrancs = Money.franc(10);
+    const bank = new Bank();
+    bank.addRate('CHF', 'USD', 2);
+    const sum = new Sum(fiveDollars, tenFrancs).times(2);
+    const result = bank.reduce(sum, 'USD');
+    expect(result.equals(Money.dollar(20))).toBe(true);
+  });
+
+  it('should return money if same currency', () => {
+    expect.assertions(1);
+    const sum = Money.dollar(1).plus(Money.dollar(1));
+    expect(sum).toBeInstanceOf(Money);
   });
 });
