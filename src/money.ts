@@ -1,31 +1,31 @@
 class Money {
-  public static dollar(amount) {
+  static dollar(amount: number): Money {
     return new Money(amount, 'USD');
   }
 
-  public static franc(amount) {
+  static franc(amount: number): Money {
     return new Money(amount, 'CHF');
   }
 
   private amount: number;
   private currency: string;
 
-  constructor(amount, currency) {
+  constructor(amount: number, currency: string) {
     this.amount = amount;
     this.currency = currency;
   }
 
-  public equals(money) {
+  public equals(money: Money): boolean {
     return (
       money.amount === this.amount && money.getCurrency() === this.currency
     );
   }
 
-  public getCurrency() {
+  public getCurrency(): string {
     return this.currency;
   }
 
-  public times(multiplier) {
+  public times(multiplier: number): Money {
     return new Money(this.amount * multiplier, this.currency);
   }
 }
