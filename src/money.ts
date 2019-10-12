@@ -1,5 +1,22 @@
 import Expression from './expression';
 
+class Sum implements Expression {
+  public augend: Money;
+  public addend: Money;
+
+  constructor(augend: Money, addend: Money) {
+    this.augend = augend;
+    this.addend = addend;
+  }
+
+  public reduce(to: string): Money {
+    const amount = this.augend.amount + this.addend.amount;
+    return new Money(amount, to);
+  }
+}
+
+export { Sum };
+
 class Money implements Expression {
   static dollar(amount: number): Money {
     return new Money(amount, 'USD');
@@ -9,12 +26,16 @@ class Money implements Expression {
     return new Money(amount, 'CHF');
   }
 
-  private amount: number;
-  private currency: string;
+  public amount: number;
+  public currency: string;
 
   constructor(amount: number, currency: string) {
     this.amount = amount;
     this.currency = currency;
+  }
+
+  public reduce(to: string) {
+    return this;
   }
 
   public equals(money: Money): boolean {
@@ -31,8 +52,8 @@ class Money implements Expression {
     return new Money(this.amount * multiplier, this.currency);
   }
 
-  public plus(addend: Money): Expression {
-    return new Money(this.amount + addend.amount, this.currency);
+  public plus(addend: Money): Sum {
+    return new Sum(this, addend);
   }
 }
 

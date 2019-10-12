@@ -1,4 +1,4 @@
-import Money from './money';
+import Money, { Sum } from './money';
 import Bank from './bank';
 
 describe('money', () => {
@@ -29,5 +29,29 @@ describe('money', () => {
     const bank = new Bank();
     const reduced = bank.reduce(sum, 'USD');
     expect(Money.dollar(10).equals(reduced)).toBe(true);
+  });
+
+  it('`plus()` should return a sum', () => {
+    expect.assertions(2);
+    const five = Money.dollar(5);
+    const result = five.plus(five);
+    const sum: Sum = result as Sum;
+    expect(five.equals(sum.augend)).toBe(true);
+    expect(five.equals(sum.addend)).toBe(true);
+  });
+
+  it('should reduce sum', () => {
+    expect.assertions(1);
+    const sum = new Sum(Money.dollar(3), Money.dollar(4));
+    const bank = new Bank();
+    const result = bank.reduce(sum, 'USD');
+    expect(Money.dollar(7).equals(result)).toBe(true);
+  });
+
+  it('should test bank.reduce()', () => {
+    expect.assertions(1);
+    const bank = new Bank();
+    const reduced = bank.reduce(Money.dollar(1), 'USD');
+    expect(Money.dollar(1).equals(reduced)).toBe(true);
   });
 });
